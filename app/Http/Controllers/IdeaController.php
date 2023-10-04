@@ -15,21 +15,38 @@ class IdeaController extends Controller
     public function store()
     {
         request()->validate([
-            'idea' => 'required|min:5|max:240'
+            'content' => 'required|min:1|max:240'
         ]);
         
         $idea = Idea::create(
             [
-                'content'=>request()->get('idea',''),
+                'content'=>request()->get('content',''),
             ]
         );
-        return redirect()->route('dashboard')->with('success', 'Idea created successfully!');
+        return redirect()->route('dashboard')->with('success', 'content created successfully!');
+    }
+
+    public function edit(Idea $idea)
+    {
+        $editing = true;
+        return view('ideas.show',compact('idea', 'editing'));  // compact('idea') = ['idea'=>$idea]
+    }
+
+    public function update(Idea $idea)
+    {
+        request()->validate([
+            'content' => 'required|min:1|max:240'
+        ]);
+        $idea->content = request()->get('content','');
+        $idea->save();
+        
+        return redirect()->route('ideas.show', $idea->id)->with('success', 'content updated successfully');
     }
 
     public function destroy(Idea $idea)
     {
         $idea->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Idea deleted successfully!');
+        return redirect()->route('dashboard')->with('success', 'content deleted successfully!');
     }
 }
