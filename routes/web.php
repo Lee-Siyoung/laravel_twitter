@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,9 @@ Route::group(['prefix'=>'ideas/', 'as'=>'ideas.'], function(){
         
         Route::post('/{idea}/comments', [CommentController::class, 'store'])->name('comments.store');
     });
+
+    Route::get('/terms', function(){
+    return view('terms');
 }); */
 
 Route::get('', [DashboardController::class, 'index'])->name('dashboard');
@@ -45,9 +49,7 @@ Route::resource('ideas', IdeaController::class)->only(['show']);
 Route::resource('ideas.comments', CommentController::class)->only(['store'])->middleware('auth');
 // == Route::post('/{idea}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
 
-Route::get('/terms', function(){
-    return view('terms');
-});
+Route::resource('users', UserController::class)->only('show','edit','update')->middleware('auth');
 
 Route::get('/terms', function(){
     return view('terms');
