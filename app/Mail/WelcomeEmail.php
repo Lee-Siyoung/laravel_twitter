@@ -56,7 +56,7 @@ class WelcomeEmail extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromStorageDisk('public','profile/6uwRN2s3xUZLR0z6AesrpsTdVZfwJIOpIC5zzKfT.png')
+            Attachment::fromStorageDisk('public','profile/6uwRN2s3xUZLR0z6AesrpsTdVZfwJIOpIC5zzKfT.png')  // 첨부파일
         ];
     }
 }
