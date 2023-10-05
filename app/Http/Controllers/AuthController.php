@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Mail\WelcomeEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function register()
@@ -14,7 +16,7 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function store()
+    public function store(User $user)
     {
         $validated = request()->validate(
             [
@@ -24,13 +26,16 @@ class AuthController extends Controller
             ]
         );
 
-        User::create(
+        $user = User::create(
             [
                 'name'=>$validated['name'],
                 'email'=>$validated['email'],
                 'password'=>Hash::make($validated['password'])
             ]
         );
+
+        Mail::to($user->email)->send(new WelcomeEmail($user));
+
         return redirect()->route('dashboard')->with('success', 'Account created Successfully!');
     }
 
