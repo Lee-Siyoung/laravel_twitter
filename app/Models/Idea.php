@@ -15,6 +15,8 @@ class Idea extends Model
         'updated_at',
     ]; */
 
+    protected $with = ['user:id,name', 'comments.user:id,name,image'];
+
     protected $fillable = [
         'user_id',
         'content',
