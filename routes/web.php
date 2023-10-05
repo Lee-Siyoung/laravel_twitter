@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+/* Route::get('', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::group(['prefix'=>'ideas/', 'as'=>'ideas.'], function(){
 
@@ -34,6 +34,19 @@ Route::group(['prefix'=>'ideas/', 'as'=>'ideas.'], function(){
         
         Route::post('/{idea}/comments', [CommentController::class, 'store'])->name('comments.store');
     });
+}); */
+
+Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('ideas', IdeaController::class)->except(['index','create', 'show'])->middleware('auth');
+
+Route::resource('ideas', IdeaController::class)->only(['show']);
+
+Route::resource('ideas.comments', CommentController::class)->only(['store'])->middleware('auth');
+// == Route::post('/{idea}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+
+Route::get('/terms', function(){
+    return view('terms');
 });
 
 Route::get('/terms', function(){
