@@ -9,7 +9,6 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     @guest
-                        
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/login">Login</a>
                     </li>
@@ -24,7 +23,8 @@
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button class="btn btn-danger btn-sm" type="submit">Logout</button>
+                            <button class="btn btn-danger btn-sm" type="submit"> Logout </button>
+                        </form>
                     </li>
                     @endauth
                 </ul>

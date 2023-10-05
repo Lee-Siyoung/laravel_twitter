@@ -18,7 +18,7 @@ class IdeaController extends Controller
             'content' => 'required|min:1|max:240'
         ]);
 
-        $idea = Idea::create($validated);
+        Idea::create($validated);
         return redirect()->route('dashboard')->with('success', 'content created successfully!');
     }
 
