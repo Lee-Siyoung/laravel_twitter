@@ -8,7 +8,7 @@
         <div class="col-6">
             @include('shared.success-message')
             <div class="mt-3">
-                @include('shared.user-card')
+                @include('users.shared.user-card')
                 <hr>
 
                 @forelse ($ideas as $idea)
